@@ -1,0 +1,39 @@
+ <!-- Navbar Section -->
+ <nav class="navbar navbar-expand-lg bg-white shadow-sm navbar-light py-2">
+    <div class="container">
+        <a href="{%url 'posts'%}" class="navbar-brand text-info">hadhuub</a>
+        <form action="{%url 'posts'%}" class="w-50">
+            <input class="form-control bg-light shadow-none border-0" style="height: 50px;" placeholder="Search hadhuub..." type="search" name="q" id="">
+        </form>
+        <button title="button" class="navbar-toggler shadow-none" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto py-md-0 py-3">
+                {%if request.user.is_authenticated%}
+                <li class="nav-item">
+                    <a title="about" href="{%url 'post-create'%}" class="nav-link btn btn-info  text-white">Add Post</a>
+                </li>
+                <li class="nav-item">
+                    <a title="about" href="{%url 'fav'%}" class="nav-link">favs</a>
+                </li>
+                <li class="nav-item">
+                    <a title="about" href="{%url 'profile' request.user.username%}" class="nav-link">profile</a>
+                </li>
+                <li class="nav-item">
+                    <a title="about" href="{%url 'logout'%}" class="nav-link">logout</a>
+                </li>
+                {%else%}
+                <li class="nav-item">
+                    <a title="about" href="{%url 'login'%}" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a title="about" href="{%url 'register'%}"
+                        class="text-white shadow-none nav-link btn btn-info">Create Account
+                    </a>
+                </li>
+                {%endif%}
+            </ul>
+        </div>
+    </div>
+</nav>

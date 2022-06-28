@@ -1,0 +1,111 @@
+/* Josefin Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;500;700&display=swap');
+
+/* Colors */
+:root {
+    --primary-color: #A0805F;
+    /* --primary-color: #C59B6F; */
+    /* --primary-color: #5E2C23;A0805F */
+    --title-color: #202020;
+    --text-color: #212121;
+    --body-color:#eee;
+    --secondary-color:#ebe9e9;
+    --secondary-color-light:#CA8872;
+    --footer-color: #242424;
+    --footer-text:#999999;
+
+}
+
+body{
+    background-color: var(--body-color);
+}
+
+.tag-color{
+    background-color: var(--secondary-color-light);
+    color: #eee;
+}
+
+.footer-color{
+    background-color: var(--footer-color);
+    color: var(--footer-text);
+}
+.primary-color {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+/* secondary-color-light */
+/* .dark-body-light  */
+.secondary-color{
+    background-color: var(--secondary-color);
+}
+.btn-primary-color{
+    color: white;
+    padding: .3rem 1rem;
+    background-color: var(--primary-color);
+    border: 0;
+    list-style: none;
+    text-decoration: none;
+}
+.btn-primary-color:hover{
+    color: white;
+}
+
+.card-date{
+    transform: rotate(180deg);
+    background-color: red;
+    color: black;
+}
+
+.tag-color:hover{
+    color: white;
+}
+
+
+img{
+    width: 100%;
+    /* object-fit: cover; */
+}
+
+
+.profile__img {
+    width: 100%;
+    height: 250px;
+    background-color: azure;
+    position: relative;
+  }
+  .profile__info-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin-right: 1rem;
+    transform: translateY(-40px);
+    border: 0.3rem solid #fff;
+  }
+  .profile__info {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .profile__info-avatar {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .article {
+    border: 1px solid #eee;
+    padding: 2rem;
+    display: flex;
+    background-color: #fff;
+    margin: 2rem;
+  }
+  .article__author-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 2rem;
+  }
+  
+  .author{
+      display: flex;
+  }
