@@ -20,23 +20,23 @@ SECRET_KEY = config('SECRET_KEY')
 # django_heroku.settings(locals())
 
 
-# DATABASES = {
-#      'default': {
-#      'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#      'NAME': 'hadhuubdb',
-#      'USER': 'hadhuubuser',
-#      'PASSWORD': 'Dh!ga3eS0ft',
-#      'HOST': 'localhost',
-#      'PORT': '5432',
-#      }
-#  }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+     'default': {
+     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+     'NAME': 'hadhuubdb',
+     'USER': 'hadhuubuser',
+     'PASSWORD': 'Dh!ga3eS0ft',
+     'HOST': 'localhost',
+     'PORT': '5432',
+     }
+ }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
