@@ -13,7 +13,7 @@ static
 # Compiled Python files
 *.pyc
 **/__pycache__
-
+media
 # Folders
 .idea
 .vscode
