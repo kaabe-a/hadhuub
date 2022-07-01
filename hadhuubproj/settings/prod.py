@@ -1,7 +1,7 @@
 from . base import *
 from decouple import config
 
-ALLOWED_HOSTS = ['localhost','103.3.60.226','127.0.0.1']
+ALLOWED_HOSTS = ['hadhuub.com','103.3.60.226','127.0.0.1']
 # ALLOWED_HOSTS = ['localhost','103.3.60.226']
 
 DEBUG = False
