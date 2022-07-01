@@ -26,8 +26,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     phone = models.CharField(max_length=20,null=True,blank=True)
     dateOfBirth = models.DateField(null=True,blank=True)
-    profile = models.ImageField(default='avatar.jpg',upload_to='profile')
-    cover = models.ImageField(default='cover.jpg',upload_to='cover')
+    profile = models.ImageField(default='avatar.jpg')
+    cover = models.ImageField(default='cover.jpg')
     bio = models.TextField(null=True,blank=True)
     
     def __str__(self) -> str:
@@ -40,11 +40,20 @@ class Profile(models.Model):
         #     output_size1 = (300,300)
         #     img1.thumbnail(output_size1)
         #     img1.save(self.profile.path)
-        # img2 = Image.open(self.cover.path)
-        # if img2.height > 300 or img2.width > 300:
-        #     output_size = (300,1300)
-        #     img2.thumbnail(output_size)
-        #     img2.save(self.cover.path)
+        print('kaabe')
+        img2 = Image.open(self.cover.path)
+        print(img2.width,'width')
+        print(img2.height,'height')
+        if img2.height > 200 or img2.width > 800:
+            output_size = (800,600)
+            img2.thumbnail(output_size)
+            print('hhhhhhhhhhhhhh')
+            img2.save(self.cover.path)
+            print(img2.width)
+            print(img2.height)
+        
+
+
     @property
     def get_profile_url(self):
         if self.profile != '':
