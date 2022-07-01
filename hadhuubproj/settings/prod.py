@@ -4,7 +4,7 @@ from decouple import config
 ALLOWED_HOSTS = ['www.hadhuub.com','103.3.60.226','127.0.0.1']
 # ALLOWED_HOSTS = ['localhost','103.3.60.226']
 
-DEBUG = True
+DEBUG = False
 
 # INSTALLED_APPS +=[
 #     'django.contrib.postgres',
