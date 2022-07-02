@@ -105,8 +105,10 @@ def add_favorite(request,pk):
 @login_required(login_url='login')
 def my_favorite(request):
     favorites = request.user.favorites.all()
+    total_posts = request.user.post_set.count()
     context = {
-        'favorites':favorites
+        'favorites':favorites,
+        'total_posts':total_posts
     }
     return render(request,'accounts/fav.html',context)
 
