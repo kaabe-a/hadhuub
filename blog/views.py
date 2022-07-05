@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from blog.forms import CategoryForm, CommentForm, PostForm
 from . models import Category, Comment, Post, PostView
 from django.db.models import Q
@@ -51,7 +52,7 @@ def post_detail(request,slug):
     tags = post.tags.all()
     is_favorite = post.favorites.filter(username=request.user).exists()
     is_liked = post.likes.filter(username=request.user).exists()
-    comments = post.comments.all()
+    # comments = post.comments.all()
     post_tag_by_id = post.tags.values_list('id',flat=True)
     similar_posts = Post.objects.prefetch_related('tags').filter(tags__in = post_tag_by_id).exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
@@ -82,16 +83,17 @@ def post_detail(request,slug):
             except:
                 parent_id = None            
             if parent_id:
-                parent_obj = Comment.objects.filter(id=parent_id)
+                parent_obj = Comment.objects.get(id=parent_id)
                 if parent_obj:
                     reply_comment = form.save(commit=False)
                     reply_comment.parent = parent_obj
             new_comment = form.save(commit=False)
             new_comment.post = post
             new_comment.save()
+            return redirect(reverse('post-detail', args=[post.slug]))
     else:
         form = CommentForm()
-
+    comments = Comment.objects.filter(post=post, parent=None).order_by('created_at')
     context = {
         'post':post,
         'tags':tags,

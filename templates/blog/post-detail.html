@@ -37,7 +37,6 @@
                                 {%endfor%} 
                             </div>
                             
-                           
                             
                             <div class="d-flex justify-content-between align-items-center mt-2">
                                 <div class="d-flex flex-wrap align-items-center gap-2">
@@ -80,17 +79,21 @@
                                         </p> 
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="d-flex flex-wrap align-items-center gap-2">
-                                                <a href="#" class="btn btn-light shadow-none"><i class="bi bi-heart me-3"></i> 53 Replies</a>
+                                                <!-- add collapse here -->
+                                                <a href=""class="btn btn-light shadow-none"><i class="bi bi-heart me-3"></i> 53 Replies</a>
                                                 <!-- <a href="#" class="btn btn-light shadow-none"><i class="bi bi-chat me-3"></i> Reply</a> -->
                                              </div>
                                         </div>
                                         </div>
+                                        <!-- <div id="collapOne" class="collapse"> -->
                                         <h3>Replies</h3>
+                                        <hr>
+                                        {%for reply in comment.replies.all %}
                                         <div class="article bg-white p-3 mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex flex-wrap flex-row align-items-center gap-2">
                                                     <div><img src="{%static 'images/avatar.jpg'%}" style="height: 40px; width: 40px; border-radius: 50%;" alt=""></div>
-                                                    <div class="fs-4">kaabe a</div> <span>9 hours, 47 minutes ago</span>
+                                                    <div class="fs-4">{{reply.name}}</div> <span>{{reply.created_at}}</span>
                                                 </div>
                                             </div>
                                             <hr>
@@ -98,17 +101,14 @@
                                                 <div class="col-sm-1"></div>
                                                 <div class="col-sm-11">
                                                     <div class="p-2 ps-0">
-                                                        <h3>Lorem ipsum dolor sit amet consectetur.</h3>
+                                                        <h3>{{reply.title}}</h3>
                                                     <p class="lead">
-                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                        Veritatis, quae a doloribus similique aperiam recusandae 
-                                                        animi repellat quis quisquam dolor ex, perspiciatis delectus  
-                                                        Iste rerum repellendus dolore laborum assumenda architecto.
+                                                       {{reply.body}}
                                                     </p> 
                                                     <div class="d-flex justify-content-between align-items-center">
                                                         <div class="d-flex flex-wrap align-items-center gap-2">
                                                             <!-- <a href="#" class="btn btn-light shadow-none"><i class="bi bi-heart me-3"></i> 53 Reactions</a> -->
-                                                            <a href="#" class="btn btn-light shadow-none"><i class="bi bi-chat me-3"></i> Reply</a>
+                                                            <!-- <a href="#" class="btn btn-light shadow-none"><i class="bi bi-chat me-3"></i> Reply</a> -->
                                                          </div>
                                                     </div>
                                                     </div>
@@ -116,6 +116,22 @@
                                                 
                                             </div>
                                         </div>
+                                        {%endfor%}
+                                        <hr>
+                                        <a class="collapsed btn btn-light" data-bs-toggle="collapse" href="#collap{{comment.id}}">Reply</a>
+                                        
+                                        <div id="collap{{comment.id}}" class="collapse my-2">
+                                            <h2>Reply</h2>
+                                            <form action="" method="post">
+                                                {%csrf_token%}
+                                                {{form|crispy}}
+                                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                                 <div class="mt-2">
+                                                  <input class="btn btn-info text-white px-4" type="submit" value="submit">
+                                                 </div>
+                                              </form>
+                                        </div>
+
                                     </div>
                                     
                                 </div>
@@ -129,25 +145,6 @@
                             <br>
                             <h4>Add Comment</h4>
                             <form action="" method="post">
-                                <!-- <div class="d-md-flex gap-2">
-                                      <div>
-                                      <label for="Name">Name</label>
-                                      <input type="text" placeholder="Enter Name" class="form-control form-control-lg shadow-none">
-                                     </div>
-                                     <div>
-                                        <label for="Email">Title</label>
-                                        <input type="text" placeholder="Enter Title" class="form-control form-control-lg shadow-none">
-                                       </div>
-                                </div>
-                                
-                                 <div>
-                                  <label for="Email">Phone</label>
-                                  <input type="email" placeholder="Enter Phone" class="form-control form-control-lg shadow-none">
-                                 </div>
-                                 <div>
-                                  <label for="body">body</label>
-                                  <textarea name="" id="" cols="10" rows="5" placeholder="Enter Body" class="form-control form-control-lg shadow-none"></textarea>
-                                 </div> -->
                                 {%csrf_token%}
                                 {{form|crispy}}
                                  <div class="mt-2">
