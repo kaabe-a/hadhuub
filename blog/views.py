@@ -3,7 +3,7 @@ from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from blog.forms import CategoryForm, CommentForm, PostForm
-from . models import Category, Comment, Post
+from . models import Category, Comment, Post, PostView
 from django.db.models import Q
 from django.contrib import messages
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
@@ -57,6 +57,21 @@ def post_detail(request,slug):
     similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
                             .order_by('-same_tags','-created_at')[:4]
     categories = Category.objects.all()
+
+    # ip accessing
+
+    def get_ip(request):
+        address = request.META.get('HTTP_X_FORWARDED_FOR')
+        if address:
+            ip = address.split(',')[-1].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
+    ip = get_ip(request)
+    new_view, created = PostView.objects.get_or_create(post=post, ip=ip)
+    if ip == new_view.ip:
+        post.post_views += 1
+        post.save()
 
     if request.method == 'POST':
         form = CommentForm(request.POST)

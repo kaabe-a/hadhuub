@@ -31,12 +31,13 @@ class Post(models.Model):
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='likes')
     like_count = models.PositiveBigIntegerField(default=0)
     favorites = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='favorites')
+    post_views = models.PositiveIntegerField(default=0)
     tags = TaggableManager()
     
     def __str__(self) -> str:
         return self.title
     class Meta:
-        ordering=('-updated_at',)
+        ordering=('-created_at',)
     def get_absolute_url(self):
         return reverse("post-detail", kwargs={"slug": self.slug})
     
@@ -45,7 +46,10 @@ class Post(models.Model):
         if self.title and not self.slug:
             self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
-    
+    @property
+    def get_comment_count(self,*args,**kwargs):
+        return self.comments.count()
+   
     @property
     def get_image_url(self):
         if self.image_url != '':
@@ -64,3 +68,11 @@ class Comment(models.Model):
     
     def __str__(self) -> str:
         return self.title
+
+class PostView(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='postviews')
+    ip = models.GenericIPAddressField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.ip)

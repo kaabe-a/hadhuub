@@ -3,7 +3,7 @@ from decouple import config
 
 ALLOWED_HOSTS = ['hadhuub.com','www.hadhuub.com','127.0.0.1']
 
-DEBUG = False
+DEBUG = True
 
 # INSTALLED_APPS +=[
 #     'django.contrib.postgres',
@@ -11,23 +11,23 @@ DEBUG = False
 SECRET_KEY = config('SECRET_KEY')
 
 
-DATABASES = {
-     'default': {
-     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-     'NAME': 'hadhuubdb',
-     'USER': 'hadhuubuser',
-     'PASSWORD': 'Dh!ga3eS0ft',
-     'HOST': 'localhost',
-     'PORT': '5432',
-     }
- }
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+#      'default': {
+#      'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#      'NAME': 'hadhuubdb',
+#      'USER': 'hadhuubuser',
+#      'PASSWORD': 'Dh!ga3eS0ft',
+#      'HOST': 'localhost',
+#      'PORT': '5432',
+#      }
+#  }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

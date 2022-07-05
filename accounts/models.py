@@ -40,17 +40,12 @@ class Profile(models.Model):
         #     output_size1 = (300,300)
         #     img1.thumbnail(output_size1)
         #     img1.save(self.profile.path)
-        print('kaabe')
         img2 = Image.open(self.cover.path)
-        print(img2.width,'width')
-        print(img2.height,'height')
         if img2.height > 200 or img2.width > 800:
             output_size = (800,600)
             img2.thumbnail(output_size)
-            print('hhhhhhhhhhhhhh')
+
             img2.save(self.cover.path)
-            print(img2.width)
-            print(img2.height)
         
 
 
