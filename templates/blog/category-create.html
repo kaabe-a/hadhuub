@@ -1,0 +1,20 @@
+{%extends 'base/base.html'%}
+{% load crispy_forms_tags %}
+{%block content%}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <h3>Create Category</h3>
+            <form action="" method="post">
+                {%csrf_token%}
+                <div class="mb-2">
+                    {{form.title|as_crispy_field}}
+                </div>
+                <input type="submit" class="btn btn-info text-white" value="submit">
+            </form>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+</div>
+{%endblock%}

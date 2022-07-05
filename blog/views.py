@@ -2,16 +2,33 @@ from django.http import HttpResponse
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from blog.forms import CommentForm, PostForm
+from blog.forms import CategoryForm, CommentForm, PostForm
 from . models import Category, Comment, Post
 from django.db.models import Q
 from django.contrib import messages
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 
+
+@login_required(login_url='login')
+def create_category(request):
+    if request.method == "POST":
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            (category,create) = Category.objects.get_or_create(category)
+            messages.info(request,f'{category} has been created successfully')
+        else:
+            messages.info(request,f'Something went Category hasnot been created')
+    form = PostForm()
+    context = {
+        'form':form
+    }
+    return render(request,'blog/category-create.html',context) 
+
 def post_list(request):
     q = request.GET.get('q') if request.GET.get('q') != None else '' 
    
-    object_list = Post.objects.filter(
+    object_list = Post.objects.select_related("category").prefetch_related('tags').filter(
         Q(title__contains=q) |
         Q(category__title__contains = q)
     )
@@ -36,7 +53,7 @@ def post_detail(request,slug):
     is_liked = post.likes.filter(username=request.user).exists()
     comments = post.comments.all()
     post_tag_by_id = post.tags.values_list('id',flat=True)
-    similar_posts = Post.objects.filter(tags__in = post_tag_by_id).exclude(id=post.id)
+    similar_posts = Post.objects.prefetch_related('tags').filter(tags__in = post_tag_by_id).exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
                             .order_by('-same_tags','-created_at')[:4]
     categories = Category.objects.all()

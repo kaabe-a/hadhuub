@@ -1,5 +1,6 @@
+from dataclasses import fields
 from django import forms
-from . models import Comment, Post
+from . models import Comment, Post,Category
 from django_summernote.fields import SummernoteTextField,SummernoteWidget
 from django_summernote.widgets import SummernoteInplaceWidget
 
@@ -25,3 +26,8 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['name','title','body']
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields =['title']

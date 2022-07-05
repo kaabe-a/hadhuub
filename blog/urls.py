@@ -9,6 +9,7 @@ sitemaps = {
 urlpatterns = [
     path('',views.post_list,name='posts'),
     path('posts/create/',views.post_create,name='post-create'),
+    path('category/create/',views.create_category,name='category-create'),
     path('posts/<str:slug>/',views.post_detail,name='post-detail'),
     path('posts/<str:pk>/delete/',views.post_delete,name='post-delete'),
     path('posts/<str:pk>/update/',views.post_update,name='post-update'),
