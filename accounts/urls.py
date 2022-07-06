@@ -12,7 +12,7 @@ urlpatterns = [
     path('accounts/fav/<str:pk>/',views.add_favorite,name='add-fav'),
     path('accounts/like/<str:pk>/',views.like_post,name='like'),
     path('accounts/follow/<str:pk>/',views.follow,name='follow'),
-    path('accounts/<str:username>',views.profile,name='profile'),
+    path('<str:username>',views.profile,name='profile'),
 
     path('accounts/password_change/',auth_views.PasswordChangeView.as_view(template_name='accounts/password_change_form.html'),name='change_password'),
 	path('accounts/password_change_done/',auth_views.PasswordChangeDoneView.as_view(template_name='accounts/password_change_done.html'),name='password_change_done'),

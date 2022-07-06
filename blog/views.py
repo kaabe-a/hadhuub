@@ -29,7 +29,7 @@ def create_category(request):
 def post_list(request):
     q = request.GET.get('q') if request.GET.get('q') != None else '' 
    
-    object_list = Post.objects.select_related("category").prefetch_related('tags').filter(
+    object_list = Post.published.select_related("category").prefetch_related('tags').filter(
         Q(title__contains=q) |
         Q(category__title__contains = q)
     )
@@ -107,14 +107,14 @@ def post_detail(request,slug):
     return render(request,'blog/post-detail.html',context)
 
 def post_category(request,category):
-    posts = Post.objects.filter(category__title__icontains=category)
+    posts = Post.published.filter(category__title__icontains=category)
     context= {
         'posts':posts
     }
     return render(request,'blog/post-list.html',context)
 
 def post_by_tag(request,tag):
-    posts = Post.objects.filter(tags__name__contains = tag )
+    posts = Post.published.filter(tags__name__contains = tag )
     context= {
         'posts':posts
     }

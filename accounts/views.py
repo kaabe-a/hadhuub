@@ -29,6 +29,7 @@ def login_page(request):
     }
     return render(request,'accounts/login.html',context)
 
+@login_required(login_url='login')
 @unauthenticated_user
 def register_page(request):
     if request.method == 'POST':
@@ -49,7 +50,7 @@ def profile(request,username):
     user = get_object_or_404(User,username=username,is_active=True)
     # all the posts of the user
     # user profile bio, first name link to contact with
-    posts = user.post_set.all()
+    posts = user.post_set.filter(status='P').all()
     total_posts = user.post_set.count()
     context = {
         "user":user,
@@ -104,7 +105,7 @@ def add_favorite(request,pk):
     
 @login_required(login_url='login')
 def my_favorite(request):
-    favorites = request.user.favorites.all()
+    favorites = request.user.favorites.filter(status='P').all()
     total_posts = request.user.post_set.count()
     context = {
         'favorites':favorites,

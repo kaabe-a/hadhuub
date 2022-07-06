@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
 
+
 class Category(models.Model):
     title = models.CharField(max_length=255) 
     
@@ -17,6 +18,16 @@ STATUS_CHOICES = [
     (STATUS_CHOICE_DRAFT, 'Drafted'),
     (STATUS_CHOICE_PUBLISH, 'Published'),
 ]
+
+class PublishedManager(models.Manager):
+    def get_queryset(self, **kwargs):
+        return super().get_queryset().filter(status='P')
+
+
+class DraftedManager(models.Manager):
+
+    def get_queryset(self, **kwargs):
+        return super().get_queryset().filter(status='D')
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
@@ -32,8 +43,12 @@ class Post(models.Model):
     like_count = models.PositiveBigIntegerField(default=0)
     favorites = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='favorites')
     post_views = models.PositiveIntegerField(default=0)
-    tags = TaggableManager()
     
+    tags = TaggableManager()
+    objects = models.Manager()
+    published = PublishedManager()
+    drafted = DraftedManager()
+
     def __str__(self) -> str:
         return self.title
     class Meta:
