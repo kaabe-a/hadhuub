@@ -85,7 +85,7 @@
                                 <p class="lead">
                                     {{post.body|truncatechars:150|safe}}
                                 </p>
-                                <div class="d-flex align-items-center mb-3 gap-2">
+                                <div class="d-flex align-items-center flex-wrap mb-3 gap-2">
                                     {%for tag in post.tags.all %}
                                     <a href="{%url 'post-tag' tag.name%}" class="btn btn-light shadow-none border">#{{tag.name}}</a> 
                                     {%endfor%} 

@@ -14,7 +14,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-wrap flex-row align-items-center gap-2">
                             <div><img src="{{post.author.profile.profile.url}}" style="height: 60px; width: 60px; border-radius: 50%;" alt=""></div>
-                            <div class="fs-4"> <a class="text-decoration-none" href="{%url 'profile' post.author.username %}">{{post.author.username}}</a> </div> <span>9 hours, 47 minutes ago</span>
+                            <div class="fs-4"> <a class="text-decoration-none" href="{%url 'profile' post.author.username %}">{{post.author.username}}</a> </div> <span>{{post.created_at|timesince} ago</span>
                         </div>
                         <div class="">
                             {%if request.user.pk == post.author.pk %}
@@ -31,7 +31,7 @@
                             <p class="lead">
                                 {{post.body|safe}}
                             </p>
-                            <div class="d-flex align-items-center mb-3 gap-2">
+                            <div class="d-flex align-items-center mb-3 gap-2 flex-wrap">
                                 {%for tag in post.tags.all %}
                                 <a href="{%url 'post-tag' tag.name%}" class="btn btn-light shadow-none border">#{{tag.name}}</a> 
                                 {%endfor%} 
@@ -87,7 +87,7 @@
                                         </div>
                                         <!-- <div id="collapOne" class="collapse"> -->
                                         <h3>Replies</h3>
-                                        <hr>
+                                        
                                         {%for reply in comment.replies.all %}
                                         <div class="article bg-white p-3 mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
@@ -117,7 +117,7 @@
                                             </div>
                                         </div>
                                         {%endfor%}
-                                        <hr>
+                                        
                                         <a class="collapsed btn btn-light" data-bs-toggle="collapse" href="#collap{{comment.id}}">Reply</a>
                                         
                                         <div id="collap{{comment.id}}" class="collapse my-2">

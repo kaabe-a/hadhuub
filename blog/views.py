@@ -15,8 +15,8 @@ def create_category(request):
     if request.method == "POST":
         form = CategoryForm(request.POST)
         if form.is_valid():
-            category = form.save(commit=False)
-            (category,create) = Category.objects.get_or_create(category)
+            category = form.cleaned_data.get('title')
+            (category,created) = Category.objects.get_or_create(title=category)
             messages.info(request,f'{category} has been created successfully')
         else:
             messages.info(request,f'Something went Category hasnot been created')
