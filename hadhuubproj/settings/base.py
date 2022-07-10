@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     
     'taggit',
-    'django_summernote',
     'crispy_forms',
+    'tinymce',
     'blog',
     'accounts',
 ]
@@ -147,3 +147,20 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+
+
+TINYMCE_DEFAULT_CONFIG = {
+    'selector': 'textarea',
+    'plugins': 'link image preview codesample contextmenu table code lists',
+    'toolbar1': 'formatselect | bold italic underline | alignleft aligncenter alignright alignjustify '
+               '| bullist numlist | outdent indent | table | link image | codesample | preview code',
+    'contextmenu': 'formats | link image',
+    'menubar': False,
+    'inline': False,
+    'statusbar': True,
+    'width': 'auto',
+    'height': 360,
+}
+

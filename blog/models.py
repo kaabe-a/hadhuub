@@ -3,7 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
-
+from tinymce.models import HTMLField
 
 class Category(models.Model):
     title = models.CharField(max_length=255) 
@@ -33,7 +33,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255,blank=True,unique=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='posts')
-    body = models.TextField(blank=True,null=True)
+    body = HTMLField()
     status = models.CharField(
         max_length=56, choices=STATUS_CHOICES, default=STATUS_CHOICE_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)

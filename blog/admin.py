@@ -1,12 +1,11 @@
 from django.contrib import admin
 from blog.models import Category, Post,Comment
 from . forms import AdminForm
-from django_summernote.admin import SummernoteModelAdmin
+
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     form = AdminForm
-    # summernote_fields = ('body',)
     list_display = ['title','category_title','status']
     list_filter = ('created_at','updated_at','status')
     list_editable  = ('status',)
