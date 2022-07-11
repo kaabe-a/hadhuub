@@ -14,7 +14,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-wrap flex-row align-items-center gap-2">
                             <div><img src="{{post.author.profile.profile.url}}" style="height: 60px; width: 60px; border-radius: 50%;" alt=""></div>
-                            <div class="fs-4"> <a class="text-decoration-none" href="{%url 'profile' post.author.username %}">{{post.author.username}}</a> </div> <span>{{post.created_at|timesince} ago</span>
+                            <div class="fs-4"> <a class="text-decoration-none" href="{%url 'profile' post.author.username %}">{{post.author.username}}</a> </div> <span>{{post.created_at|timesince}} ago</span>
                         </div>
                         <div class="">
                             {%if request.user.pk == post.author.pk %}
