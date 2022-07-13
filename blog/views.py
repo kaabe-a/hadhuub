@@ -138,7 +138,7 @@ def post_delete(request,pk):
 def post_create(request):
     
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST,request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -146,8 +146,10 @@ def post_create(request):
             form.save_m2m()
             messages.info(request,f'{post.title} has been created successfully')
             return redirect('post-detail',post.slug)
-        else:    
-            messages.danger(request,f'{post.title} Something Went Wrong')
+        else:
+            print("Invalid Form")
+            print(form.errors)    
+            messages.warning(request,'Something Went Wrong')
     form = PostForm()
     context = {
         'form':form
@@ -160,7 +162,7 @@ def post_update(request,pk):
     if request.user != post.author:
         return HttpResponse('you are not allowed to edit!')
     if request.method == 'POST':
-        form = PostForm(request.POST,instance=post)
+        form = PostForm(request.POST,request.FILES,instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user

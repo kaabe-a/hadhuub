@@ -40,6 +40,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='likes')
+    thumbnail = models.ImageField(upload_to='post_images/', null=True, blank=True)
     like_count = models.PositiveBigIntegerField(default=0)
     favorites = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name='favorites')
     post_views = models.PositiveIntegerField(default=0)
@@ -65,10 +66,11 @@ class Post(models.Model):
     def get_comment_count(self,*args,**kwargs):
         return self.comments.count()
    
+  
     @property
     def get_image_url(self):
-        if self.image_url != '':
-            return self.image_url
+        if self.thumbnail and hasattr(self.thumbnail, 'url'):
+            return self.thumbnail.url
         else:
             return ""
     

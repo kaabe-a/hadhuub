@@ -6,7 +6,7 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
             <h3>Create Post</h3>
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 {%csrf_token%}
                 <div>
                     {{form.title|as_crispy_field}}
@@ -20,6 +20,18 @@
                 <div>
                     {{form.tags|as_crispy_field}}
                 </div>
+                <div class="mb-2">
+                    {{form.thumbnail|as_crispy_field}}
+                </div>
+                {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %} 
+                       <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                       </div>
+                    {% endfor %}
+                {% endfor %}
+             {% endif %}
                 <input type="submit" class="btn btn-info text-white" value="submit">
             </form>
         </div>

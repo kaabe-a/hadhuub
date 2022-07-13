@@ -10,6 +10,7 @@ urlpatterns = [
     path('accounts/users/',views.users_page,name='users'),
     path('accounts/favs/',views.my_favorite,name='fav'),
     path('accounts/fav/<str:pk>/',views.add_favorite,name='add-fav'),
+    path('accounts/post/<str:pk>/',views.publish_or_unpublish,name='publish'),
     path('accounts/like/<str:pk>/',views.like_post,name='like'),
     path('accounts/follow/<str:pk>/',views.follow,name='follow'),
     path('<str:username>',views.profile,name='profile'),

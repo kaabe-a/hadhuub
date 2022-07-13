@@ -19,15 +19,18 @@
                         <div class="">
                             {%if request.user.pk == post.author.pk %}
                             <a href="{%url 'post-update' post.pk %}" class="d-inline-flex me-2 gap-2 align-items-center">  <i class="bi bi-pencil-square fs-6"></i></a>
-                            {%endif%}
                             <div class="d-inline-flex gap-2 align-items-center ">{{post.post_views}}  <i class="bi bi-eye fs-5"></i></div>
-                           </div>
+                            {%endif%}
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-11">
                             <h2 class="text-decoration-none">{{post.title}}</h2>
+                            {% if post.get_image_url %}
+                            <img class="w-100" style="height: 300px;object-fit:cover ;" src="{{post.get_image_url}}" alt="">
+                            {%endif%}
                             <p class="lead">
                                 {{post.body|safe}}
                             </p>

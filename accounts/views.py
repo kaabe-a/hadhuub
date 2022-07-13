@@ -1,9 +1,11 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout,authenticate,login
 from django.contrib import messages
 from . decorators import unauthenticated_user
+from django.db.models import F
 
 from blog.models import Post
 from . models import Follow, User
@@ -50,7 +52,7 @@ def profile(request,username):
     user = get_object_or_404(User,username=username,is_active=True)
     # all the posts of the user
     # user profile bio, first name link to contact with
-    posts = user.post_set.filter(status='P').all()
+    posts = user.post_set.all()
     total_posts = user.post_set.count()
     context = {
         "user":user,
@@ -58,6 +60,21 @@ def profile(request,username):
         'total_posts':total_posts
     }
     return render(request,'accounts/profile.html',context)
+
+@login_required(login_url='login')
+def publish_or_unpublish(request,pk):
+    post = get_object_or_404(Post,pk=pk)
+    if post.author == request.user:
+        if post.status == 'P':
+            post.status = 'D'
+            post.save()
+            print(post.status)
+        else:
+            post.status = 'P'
+            post.save()
+            print(post.status)
+    return redirect('profile',request.user)
+    
 
 @login_required(login_url='login')
 def profile_edit(request):
@@ -118,7 +135,6 @@ def my_favorite(request):
 def like_post(request,pk):
     post = get_object_or_404(Post,pk=pk)
     user = request.user
-    print(user,post.likes.all())
     if not post.likes.filter(username=user).exists():
         post.likes.add(user)
         post.like_count = post.likes.all().count()

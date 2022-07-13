@@ -73,8 +73,15 @@
                             <div class="">
                                 {%if request.user.pk == post.author.pk %}
                                 <a href="{%url 'post-update' post.pk %}" class="d-inline-flex me-2 gap-2 align-items-center">  <i class="bi bi-pencil-square fs-6"></i></a>
-                                {%endif%}
                                 <div class="d-inline-flex gap-2 align-items-center ">{{post.post_views}}  <i class="bi bi-eye fs-5"></i></div>
+                                
+                                {% if post.status == 'P' %}
+                                <a class="ms-1 text-decoration-none" href="{%url 'publish' post.pk%}">Unpublish</a>
+                                {%else%}
+                                <a class="ms-1 text-decoration-none" href="{%url 'publish' post.pk%}">Publish</a>
+                                {%endif%}
+
+                                {%endif%}
                             </div>
                         </div>
                         <hr>
