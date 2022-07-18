@@ -27,16 +27,18 @@
                     {%endif%}
                 </div>
             </div>
-            <div class="px-5 pb-2 d-flex flex-wrap justify-content-between">
+            <div class="px-5 pb-2">
                 <p class="lead">
                     {{user.profile.bio}}
                 </p>
-                <div class="py-2 d-flex align-items-center">
-                    <div class="btn btn-light">
+                <br>
+               <div class="d-flex flex-wrap justify-content-between">
+                <div class="py-2 gap-2 d-flex align-items-center">
+                    <div class="btn  bg-white">
                         <span>{{total_posts}} Articles</span> 
                     </div>
                    
-                    <div class="btn btn-light">
+                    <div class="btn  bg-white">
                     {% with total_following=user.following.count %}
                     <span>{{ total_following }}</span>
                     <span>
@@ -45,7 +47,7 @@
                     {%endwith%}
                     </div>
 
-                    <div class="btn btn-light">
+                    <div class="btn  bg-white">
                     {% with total_followers=user.followers.count %}
                     <span>{{ total_followers }}</span>
                     <span>
@@ -54,13 +56,14 @@
                     {%endwith%}
                     </div>
                 </div>
-                <div class="py-1 d-flex align-items-center gap-3 flex-wrap">
+                <div class="py-1 d-flex align-items-center flex-wrap gap-3">
                     <a href="{{user.social.website}}"><i class="bi bi-globe fs-5"></i></a>
                     <a href="{{user.social.facebook}}"><i class="bi bi-facebook fs-5"></i></a>
                     <a href="{{user.social.linkedin}}"><i class="bi bi-linkedin fs-5"></i></a>
                     <a href="{{user.social.twitter}}"><i class="bi bi-twitter fs-5"></i></a>
                     <a href="{{user.social.github}}"><i class="bi bi-github fs-5"></i></a>
                 </div>
+               </div>
             </div>
             <hr>
         </div>
