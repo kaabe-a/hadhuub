@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from . models import Follow, User,Profile
+from . models import Follow, Social, User,Profile
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
@@ -19,3 +19,4 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(Profile)
 admin.site.register(Follow)
+admin.site.register(Social)

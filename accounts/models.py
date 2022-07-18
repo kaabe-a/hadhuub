@@ -40,12 +40,12 @@ class Profile(models.Model):
         #     output_size1 = (300,300)
         #     img1.thumbnail(output_size1)
         #     img1.save(self.profile.path)
-        img2 = Image.open(self.cover.path)
-        if img2.height > 200 or img2.width > 800:
-            output_size = (800,600)
-            img2.thumbnail(output_size)
+        # img2 = Image.open(self.cover.path)
+        # if img2.height > 200 or img2.width > 800:
+        #     output_size = (800,600)
+        #     img2.thumbnail(output_size)
 
-            img2.save(self.cover.path)
+        #     img2.save(self.cover.path)
         
 
 
@@ -71,3 +71,24 @@ def create_profile_for_new_user(sender,instance,created,**kwargs):
             # pass
     
 post_save.connect(create_profile_for_new_user,sender=User)
+
+
+
+class Social(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    website = models.URLField(max_length=56,null=True,blank=True)
+    facebook = models.URLField(max_length=56,null=True,blank=True)
+    twitter = models.URLField(max_length=56,null=True,blank=True)
+    linkedin = models.URLField(max_length=56,null=True,blank=True)
+    github = models.URLField(max_length=56,null=True,blank=True)
+
+
+def create_social_for_new_user(sender,instance,created,**kwargs):
+    if created:
+        # try:
+        Social.objects.create(user=instance)
+        print('Social is created')
+        # except:
+            # pass
+    
+post_save.connect(create_social_for_new_user,sender=User)

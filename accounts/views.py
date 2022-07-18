@@ -31,14 +31,14 @@ def login_page(request):
     }
     return render(request,'accounts/login.html',context)
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 @unauthenticated_user
 def register_page(request):
     if request.method == 'POST':
         form = forms.UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            print(user.groups.all())
+            # print(user.groups.all())
             username = form.cleaned_data.get('username')
             messages.success(request,'Account Was Created For'+username)
             return redirect('login')
@@ -53,7 +53,7 @@ def profile(request,username):
     # all the posts of the user
     # user profile bio, first name link to contact with
     posts = user.post_set.all()
-    total_posts = user.post_set.count()
+    total_posts = user.post_set.filter(status='P').count()
     context = {
         "user":user,
         'posts':posts,
@@ -82,17 +82,23 @@ def profile_edit(request):
     if request.method == 'POST':
         uform = forms.UserEditForm(request.POST,instance=user)
         pform = forms.ProfileForm(request.POST,request.FILES,instance=user.profile)
-        if uform.is_valid() and pform.is_valid():
+        sform = forms.SocialForm(request.POST,instance=user.social)
+        if uform.is_valid() and pform.is_valid() and sform.is_valid():
             uform.save()
             pform.save()
+            social = sform.save(commit=False)
+            social.user = user
+            social.save()
             messages.success(request,'Profile have been updated successfuly')
         else:
             messages.error(request,'Sorry some thing went wrong Please try again')
     uform = forms.UserEditForm(instance=user)
     pform = forms.ProfileForm(instance=user.profile)
+    sform = forms.SocialForm(instance=user.social)
     context = {
         'pform':pform,
-        'uform':uform
+        'uform':uform,
+        'sform':sform,
     }
     return render(request,'accounts/profile_update.html',context)
 

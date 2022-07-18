@@ -26,7 +26,7 @@
                     {%endif%}
                 </div>
             </div>
-            <div class="px-5 pb-2">
+            <div class="px-5 pb-2 d-flex flex-wrap justify-content-between">
                 <p class="lead">
                     {{user.profile.bio}}
                 </p>
@@ -52,6 +52,13 @@
                     </span>
                     {%endwith%}
                     </div>
+                </div>
+                <div class="py-1 d-flex align-items-center gap-3 flex-wrap">
+                    <a href="{{user.social.website}}"><i class="bi bi-globe fs-5"></i></a>
+                    <a href="{{user.social.facebook}}"><i class="bi bi-facebook fs-5"></i></a>
+                    <a href="{{user.social.linkedin}}"><i class="bi bi-linkedin fs-5"></i></a>
+                    <a href="{{user.social.twitter}}"><i class="bi bi-twitter fs-5"></i></a>
+                    <a href="{{user.social.github}}"><i class="bi bi-github fs-5"></i></a>
                 </div>
             </div>
             <hr>

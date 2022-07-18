@@ -54,7 +54,7 @@ def post_detail(request,slug):
     is_liked = post.likes.filter(username=request.user).exists()
     # comments = post.comments.all()
     post_tag_by_id = post.tags.values_list('id',flat=True)
-    similar_posts = Post.objects.prefetch_related('tags').filter(tags__in = post_tag_by_id).exclude(id=post.id)
+    similar_posts = Post.published.prefetch_related('tags').filter(tags__in = post_tag_by_id).exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
                             .order_by('-same_tags','-created_at')[:4]
     categories = Category.objects.all()

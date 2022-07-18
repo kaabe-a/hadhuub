@@ -195,7 +195,9 @@
                         href="{%url 'profile' post.author.username%}">{{post.author.username}}</a></h4>
                 <hr>
                 {%for post in post.author.post_set.all%}
+                {%if post.status == 'P' %}
                 <a class="text-decoration-none" href="{%url 'post-detail' post.slug%}">{{post.title}}</a> <br> <br>
+                {%endif%}
                 {%endfor%}
                 </div>
             </div>
