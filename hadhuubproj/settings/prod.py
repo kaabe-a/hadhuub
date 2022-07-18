@@ -3,7 +3,7 @@ from decouple import config
 
 ALLOWED_HOSTS = ['hadhuub.com','www.hadhuub.com']
 
-DEBUG = True
+DEBUG = False
 
 # INSTALLED_APPS +=[
 #     'django.contrib.postgres',
