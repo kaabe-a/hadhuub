@@ -17,13 +17,13 @@
                 </div>
                 <div class="d-flex gap-3 align-items-center flex-wrap">
                     {%if request.user.id == user.id%}
+                    <a class="btn btn-info text-white shadow-none" href="{%url 'edit'%}">Edit Account</a>
                     {%else%}
                     {% if request.user not in user.followers.all %}
-                    <a class="btn btn-info text-white" href="{%url 'follow' user.id%}">Follow</a>
+                    <a class="btn btn-info text-white shadow-none" href="{%url 'follow' user.id%}">Follow</a>
                     {% else %}
-                    <a class="btn btn-info text-white" href="{%url 'follow' user.id%}">Unfollow</a>
+                    <a class="btn btn-info text-white shadow-none" href="{%url 'follow' user.id%}">Unfollow</a>
                     {% endif %}
-                    <a class="btn btn-info text-white" href="{%url 'edit'%}">Edit Account</a>
                     {%endif%}
                 </div>
             </div>
