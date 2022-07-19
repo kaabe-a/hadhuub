@@ -31,4 +31,12 @@ class CategoryAdmin(admin.ModelAdmin):
     list_per_page = 10
     
 
-admin.site.register(Comment)
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('body','created_at')
+    list_filter = ('status','created_at')
+    list_per_page = 10
+
+    # def save_model(self, request, obj, form, change) -> None:
+    #     obj.user = request.user
+    #     return super().save_model(request, obj, form, change)

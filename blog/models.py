@@ -64,8 +64,8 @@ class Post(models.Model):
         return super().save(*args, **kwargs)
     @property
     def get_comment_count(self,*args,**kwargs):
-        return self.comments.count()
-   
+        return self.comments.filter(parent=None,status='P').count()
+    
   
     @property
     def get_image_url(self):
@@ -75,17 +75,18 @@ class Post(models.Model):
             return ""
     
 class Comment(models.Model):
-    name = models.CharField(max_length=255)
-    title = models.CharField(max_length=255)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='comments')
     body = models.TextField()
     status = models.CharField(max_length=2,choices=STATUS_CHOICES,default=STATUS_CHOICE_DRAFT)
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     parent = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True,related_name='replies')
     created_at = models.DateTimeField(auto_now_add=True)
     
-    def __str__(self) -> str:
-        return self.title
+    class Meta:
+        ordering = ("created_at",)
 
+    def __str__(self) -> str:
+        return self.post.title
 class PostView(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='postviews')
     ip = models.GenericIPAddressField()

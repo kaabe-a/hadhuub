@@ -64,12 +64,22 @@
                             <h4>All Comments</h4>
                             {%if comments %}
                             {%for comment in comments%}
+                            {%if comment.user == request.user %}
                             <div class="article bg-white p-3 mb-2 ">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex flex-wrap flex-row align-items-center gap-2">
                                         <div><img src="{%static  'images/avatar.jpg' %}" style="height: 40px; width: 40px; border-radius: 50%;" alt=""></div>
                                         <div class="fs-4">{{comment.name}}</div> <span>{{comment.created_at|timesince}} ago</span>
                                     </div>
+                                    <div>
+                                        {%if request.user == comment.user %}
+                                        {% if comment.status == 'P' %}
+                                        <a class="ms-1 text-decoration-none" href="{%url 'com-publish' comment.pk%}">Unpublish</a>
+                                        {%else%}
+                                        <a class="ms-1 text-decoration-none" href="{%url 'com-publish' comment.pk%}">Publish</a>
+                                        {%endif%}
+                                        {%endif%}
+                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
@@ -83,20 +93,30 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="d-flex flex-wrap align-items-center gap-2">
                                                 <!-- add collapse here -->
-                                                <a href=""class="btn btn-light shadow-none"><i class="bi bi-heart me-3"></i> 53 Replies</a>
-                                                <!-- <a href="#" class="btn btn-light shadow-none"><i class="bi bi-chat me-3"></i> Reply</a> -->
+                                                {% with replies=comment.replies.count %}
+                                                <a href=""class="btn btn-light shadow-none"><i class="bi bi-heart me-3"></i> {{replies}} Replies</a>
+                                                {%endwith%}
                                              </div>
                                         </div>
                                         </div>
                                         <!-- <div id="collapOne" class="collapse"> -->
                                         <h3>Replies</h3>
-                                        
                                         {%for reply in comment.replies.all %}
+                                        {%if reply.user == request.user %}
                                         <div class="article bg-white p-3 mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex flex-wrap flex-row align-items-center gap-2">
                                                     <div><img src="{%static 'images/avatar.jpg'%}" style="height: 40px; width: 40px; border-radius: 50%;" alt=""></div>
                                                     <div class="fs-4">{{reply.name}}</div> <span>{{reply.created_at}}</span>
+                                                </div>
+                                                <div>
+                                                   {%if request.user == reply.user %}
+                                                   {% if reply.status == 'P' %}
+                                                   <a class="ms-1 text-decoration-none" href="{%url 'com-publish' reply.pk%}">Unpublish</a>
+                                                   {%else%}
+                                                   <a class="ms-1 text-decoration-none" href="{%url 'com-publish' reply.pk%}">Publish</a>
+                                                   {%endif%}
+                                                   {%endif%}
                                                 </div>
                                             </div>
                                             <hr>
@@ -119,26 +139,167 @@
                                                 
                                             </div>
                                         </div>
+                                        {% elif reply.status == 'P' %}
+                                        <div class="article bg-white p-3 mb-2">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex flex-wrap flex-row align-items-center gap-2">
+                                                    <div><img src="{%static 'images/avatar.jpg'%}" style="height: 40px; width: 40px; border-radius: 50%;" alt=""></div>
+                                                    <div class="fs-4">{{reply.name}}</div> <span>{{reply.created_at}}</span>
+                                                </div>
+                                                <div>
+                                                   {%if request.user == reply.user %}
+                                                   {% if reply.status == 'P' %}
+                                                   <a class="ms-1 text-decoration-none" href="{%url 'com-publish' reply.pk%}">Unpublish</a>
+                                                   {%else%}
+                                                   <a class="ms-1 text-decoration-none" href="{%url 'com-publish' reply.pk%}">Publish</a>
+                                                   {%endif%}
+                                                   {%endif%}
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-11">
+                                                    <div class="p-2 ps-0">
+                                                        <h3>{{reply.title}}</h3>
+                                                    <p class="lead">
+                                                       {{reply.body}}
+                                                    </p> 
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="d-flex flex-wrap align-items-center gap-2">
+                                                            <!-- <a href="#" class="btn btn-light shadow-none"><i class="bi bi-heart me-3"></i> 53 Reactions</a> -->
+                                                            <!-- <a href="#" class="btn btn-light shadow-none"><i class="bi bi-chat me-3"></i> Reply</a> -->
+                                                         </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        {%endif%}
                                         {%endfor%}
                                         
-                                        <a class="collapsed btn btn-light" data-bs-toggle="collapse" href="#collap{{comment.id}}">Reply</a>
+                                       {%if request.user.is_authenticated%}
+                                       <a class="collapsed btn btn-light" data-bs-toggle="collapse" href="#collap{{comment.id}}">Reply</a>
                                         
-                                        <div id="collap{{comment.id}}" class="collapse my-2">
-                                            <h2>Reply</h2>
-                                            <form action="" method="post">
-                                                {%csrf_token%}
-                                                {{form|crispy}}
-                                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
-                                                 <div class="mt-2">
-                                                  <input class="btn btn-info text-white px-4" type="submit" value="submit">
-                                                 </div>
-                                              </form>
-                                        </div>
+                                       <div id="collap{{comment.id}}" class="collapse my-2">
+                                           <h2>Reply</h2>
+                                           <form action="" method="post">
+                                               {%csrf_token%}
+                                               {{form|crispy}}
+                                               <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                                <div class="mt-2">
+                                                 <input class="btn btn-info text-white px-4" type="submit" value="submit">
+                                                </div>
+                                             </form>
+                                       </div>
+                                       {%else%}
+                                       {%endif%}
 
                                     </div>
                                     
                                 </div>
                             </div>
+                            {%elif comment.status == 'P' %}
+                            <div class="article bg-white p-3 mb-2 ">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex flex-wrap flex-row align-items-center gap-2">
+                                        <div><img src="{%static  'images/avatar.jpg' %}" style="height: 40px; width: 40px; border-radius: 50%;" alt=""></div>
+                                        <div class="fs-4">{{comment.name}}</div> <span>{{comment.created_at|timesince}} ago</span>
+                                    </div>
+                                    <div>
+                                        {%if request.user == comment.user %}
+                                        {% if comment.status == 'P' %}
+                                        <a class="ms-1 text-decoration-none" href="{%url 'com-publish' comment.pk%}">Unpublish</a>
+                                        {%else%}
+                                        <a class="ms-1 text-decoration-none" href="{%url 'com-publish' comment.pk%}">Publish</a>
+                                        {%endif%}
+                                        {%endif%}
+                                     </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-11" >
+                                        <div  class="p-2 ps-0">
+                                            <h3>{{comment.title}}</h3>
+                                        <p class="lead">
+                                            {{comment.body}}
+                                        </p> 
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                                <!-- add collapse here -->
+                                                {% with replies=comment.replies.count %}
+                                                <a href=""class="btn btn-light shadow-none"><i class="bi bi-heart me-3"></i> {{replies}} Replies</a>
+                                                {%endwith%}
+                                             </div>
+                                        </div>
+                                        </div>
+                                        <!-- <div id="collapOne" class="collapse"> -->
+                                        <h3>Replies</h3>
+                                        {%for reply in comment.replies.all %}
+                                            {%if reply.status == 'P' %}
+                                            <div class="article bg-white p-3 mb-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex flex-wrap flex-row align-items-center gap-2">
+                                                        <div><img src="{%static 'images/avatar.jpg'%}" style="height: 40px; width: 40px; border-radius: 50%;" alt=""></div>
+                                                        <div class="fs-4">{{reply.name}}</div> <span>{{reply.created_at}}</span>
+                                                    </div>
+                                                    <div>
+                                                       {%if request.user == reply.user %}
+                                                       {% if reply.status == 'P' %}
+                                                       <a class="ms-1 text-decoration-none" href="{%url 'com-publish' reply.pk%}">Unpublish</a>
+                                                       {%else%}
+                                                       <a class="ms-1 text-decoration-none" href="{%url 'com-publish' reply.pk%}">Publish</a>
+                                                       {%endif%}
+                                                       {%endif%}
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-1"></div>
+                                                    <div class="col-sm-11">
+                                                        <div class="p-2 ps-0">
+                                                            <h3>{{reply.title}}</h3>
+                                                        <p class="lead">
+                                                           {{reply.body}}
+                                                        </p> 
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                                                <!-- <a href="#" class="btn btn-light shadow-none"><i class="bi bi-heart me-3"></i> 53 Reactions</a> -->
+                                                                <!-- <a href="#" class="btn btn-light shadow-none"><i class="bi bi-chat me-3"></i> Reply</a> -->
+                                                             </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            {%endif%}
+                                        {%endfor%}
+                                        
+                                       {%if request.user.is_authenticated%}
+                                       <a class="collapsed btn btn-light" data-bs-toggle="collapse" href="#collap{{comment.id}}">Reply</a>
+                                        
+                                       <div id="collap{{comment.id}}" class="collapse my-2">
+                                           <h2>Reply</h2>
+                                           <form action="" method="post">
+                                               {%csrf_token%}
+                                               {{form|crispy}}
+                                               <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                                <div class="mt-2">
+                                                 <input class="btn btn-info text-white px-4" type="submit" value="submit">
+                                                </div>
+                                             </form>
+                                       </div>
+                                       {%else%}
+                                       {%endif%}
+
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            {%endif%}
                             {%endfor%}
                             {%else%}
                             <h6>No Comments To Show Yet</h6>
@@ -146,7 +307,8 @@
                             
                            
                             <br>
-                            <h4>Add Comment</h4>
+                                {%if request.user.is_authenticated%}
+                                <h4>Add Comment</h4>
                             <form action="" method="post">
                                 {%csrf_token%}
                                 {{form|crispy}}
@@ -155,6 +317,9 @@
                                  </div>
                               </form>
                               <br>
+                                {%else%}
+                                need to login to comment
+                                {%endif%}
                               <br>
                             <h3>Simalar Posts</h3>
                             {%for post in similar_posts%}

@@ -74,7 +74,7 @@ def post_detail(request,slug):
         post.post_views += 1
         post.save()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         form = CommentForm(request.POST)
         if form.is_valid():
             parent_obj = None
@@ -89,11 +89,13 @@ def post_detail(request,slug):
                     reply_comment.parent = parent_obj
             new_comment = form.save(commit=False)
             new_comment.post = post
+            new_comment.user = request.user
             new_comment.save()
             return redirect(reverse('post-detail', args=[post.slug]))
     else:
         form = CommentForm()
     comments = Comment.objects.filter(post=post, parent=None).order_by('created_at')
+ 
     context = {
         'post':post,
         'tags':tags,
@@ -175,3 +177,18 @@ def post_update(request,pk):
         'form':form
     }
     return render(request,'blog/post-create.html',context)  
+
+
+@login_required(login_url='login')
+def publish_or_unpublish(request,pk):
+    comment = get_object_or_404(Comment,pk=pk)
+    if comment.user == request.user:
+        if comment.status == 'P':
+            comment.status = 'D'
+            comment.save()
+            print(comment.status)
+        else:
+            comment.status = 'P'
+            comment.save()
+            print(comment.status)
+    return redirect('posts')

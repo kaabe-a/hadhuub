@@ -13,6 +13,7 @@ urlpatterns = [
     path('posts/<str:slug>/',views.post_detail,name='post-detail'),
     path('posts/<str:pk>/delete/',views.post_delete,name='post-delete'),
     path('posts/<str:pk>/update/',views.post_update,name='post-update'),
+    path('posts/<str:pk>/comments/',views.publish_or_unpublish,name='com-publish'),
     path('posts/<str:category>/category/',views.post_category,name='post-category'),
     path('posts/<str:tag>/tag/',views.post_by_tag,name='post-tag'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},

@@ -19,7 +19,7 @@ class AdminForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['name','title','body']
+        fields = ['body']
 
 class CategoryForm(forms.ModelForm):
     class Meta:
