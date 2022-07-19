@@ -342,9 +342,7 @@
                        <!-- <a href="#" class="text-decoration-none btn btn-info text-white">Follow</a> -->
                    </div>
                    <p class="lead">
-                    Lorem ipsum dolor sit amet consectetur
-                     adipisicing elit.
-                      Praesentium earum ex adipisci veniam deleniti.
+                    {{post.author.profile.bio}}
                    </p>
                    {%if request.user == post.author.username %}
                    {%else%}
