@@ -19,8 +19,19 @@
     gtag('config', 'G-C781Q7LZEB');
     </script>
     {{ form.media }}
+    <style>
+        .noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+    </style>
 </head>
-<body class="bg-light">
+<body class="bg-light noselect">
     {%include 'components/navbar.html' %}
     {% for message in messages %}
     <div class="container alert {{ message.tags }} alert-dismissible fade show" role="alert">

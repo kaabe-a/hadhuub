@@ -1,80 +1,40 @@
-# Create the project [DONE]
-#    -> Create The Apps [DONE]
-# Setup the Custom User Admin [DONE]
-# Prepare For Production [DONE]
+### Features
+- Authentication
+    1. login
+    2. registation
+    3. profile
+    4. password change
+    5. reset password
+    6. logout
 
-# Create The Models  [DONE]
-#    -> User [DONE]
-#    -> Profile []
-#    -> Follow []
-#    -> Post [DONE]
-#    -> Category [DONE]
-#    -> Comments []
-<!-- #    -> Tag []
-#    -> TaggedItem [] -->
+- Favorates
+    1. adding/removing favorates
+    2. all favorates
 
-# Populate The Database [DONE]
-# Admins [DONE]
+- Posts
+    1. CRUD
 
-# Features
+- Post Recommendation
+- Search
+- Follow
+- Comments
+- Adding a sitemap
+- Taggs posts
+- Likes
 
-# Authentication
-#    -> login []
-#    -> registration []
-#    -> logout []
-#    -> password reset []
-#    -> password change []
-#    -> profile []
-#    -> profile edit []
-
-#    -> user groups (add group during registrations)     []
-#    -> user permisions     []
-#    -> restricting user access ON pages    []
-
-# Post Crud
-#    -> create []
-#    -> list [DONE]
-#    -> detail [DONE]
-#    -> delete []
-#    -> update []
-
-# Search
-#    -> search by title,tag,category,body []
-
-# Pagination    []
-# Likes     []
-# Favorites     []
-# Follow    []
-# Comments      []
-# Adding a sitemap      [DONE]
-# Taggs posts    []
-# Creating custom template tags and filters     []
-# Recommending similar posts    [DONE]
-# my favorate []
+### Todo
+- Design Database
+    - Category
+    - Tags
+    - Likes
+    - Comments
+    - Posts
+    - Users
+    - Skills
+    - Intrests
+    - Notification
 
 
-<!-- INITIAL RELEASE -->
-#    -> list [DONE]
-#    -> detail [DONE]
-# Taggs posts    [DONE]
-# Recommending similar posts    [DONE]
-# Search [DONE]
-#    -> search by title,tag,category,body [DONE]
-# Pagination   [DONE]
-# Admins [DONE]
-# Prepare For Production [DONE]
-# gitignore, heroku, postgress setup, add url link [DONE]
-
-
-
-<!-- Second Release  -->
-# django text Editor  summernote [DONE]
-# Recommending similar posts    [DONE]
-# Django Tennants []
-# security post must only owner must only update or delete []
-# Creating custom template tags and filters     []
-# Latest Posts []
-# Top Posts []
-# Most Viewed Posts []
-# Status []
-# install django fakeadmin []
+### Email
+-   Send Email
+-   Send Grid

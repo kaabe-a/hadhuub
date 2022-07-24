@@ -31,8 +31,13 @@ def post_list(request):
    
     object_list = Post.published.select_related("category").prefetch_related('tags').filter(
         Q(title__contains=q) |
-        Q(category__title__contains = q)
-    )
+        Q(category__title__contains = q)).all()
+
+    if request.user.is_authenticated:
+        object_list = Post.published.filter(Q(author__in = request.user.following.all()) | Q(author =request.user)).distinct()
+        print(object_list)
+
+
     paginator = Paginator(object_list,5)
     page = request.GET.get('page')
     try:

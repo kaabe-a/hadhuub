@@ -52,7 +52,11 @@ def profile(request,username):
     user = get_object_or_404(User,username=username,is_active=True)
     # all the posts of the user
     # user profile bio, first name link to contact with
-    posts = user.post_set.all()
+    posts = user.post_set.filter(status='P').all()
+    
+    if request.user.is_authenticated:
+        posts = user.post_set.all()
+    
     total_posts = user.post_set.filter(status='P').count()
     context = {
         "user":user,
@@ -159,16 +163,14 @@ def like_post(request,pk):
 @login_required(login_url='login')
 def follow(request,pk):
     current_user = request.user
-    print(current_user,'is following')
+
     user_to_follow = User.objects.get(pk=pk)
-    print(user_to_follow,'to follow')
+    
     if not Follow.objects.filter(user_is_following=current_user,\
         user_to_follow=user_to_follow).exists() and user_to_follow != request.user:
         (follow,created) = Follow.objects.get_or_create(user_is_following=current_user,\
             user_to_follow=user_to_follow)
-        print(follow)
     else:
         Follow.objects.filter(user_is_following=current_user,user_to_follow=user_to_follow).delete()
-        print('boodaysay')
     return redirect('profile',current_user)
         
