@@ -1,9 +1,12 @@
+from io import BytesIO
 from django.urls import reverse
+from django.core.files import File
 from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
 from tinymce.models import HTMLField
+from PIL import Image
 
 class Category(models.Model):
     title = models.CharField(max_length=255) 
@@ -73,7 +76,16 @@ class Post(models.Model):
             return self.thumbnail.url
         else:
             return ""
-    
+
+    # def make_thumbnail(self,image,size=(400,350)):
+    #     img = Image.open(image)
+    #     img.convert('RGB')
+    #     img.thumbnail(size)
+    #     thumb_io = BytesIO()
+    #     img.save(thumb_io,'JPEG',quality=85)
+    #     thumbnail = File(thumb_io,name=image.name)
+    #     return thumbnail
+
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='comments')
     body = models.TextField()
