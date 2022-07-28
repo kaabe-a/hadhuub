@@ -77,15 +77,6 @@ class Post(models.Model):
         else:
             return ""
 
-    # def make_thumbnail(self,image,size=(400,350)):
-    #     img = Image.open(image)
-    #     img.convert('RGB')
-    #     img.thumbnail(size)
-    #     thumb_io = BytesIO()
-    #     img.save(thumb_io,'JPEG',quality=85)
-    #     thumbnail = File(thumb_io,name=image.name)
-    #     return thumbnail
-
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='comments')
     body = models.TextField()
