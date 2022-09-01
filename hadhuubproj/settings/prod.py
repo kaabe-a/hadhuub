@@ -13,7 +13,7 @@ ALLOWED_HOSTS.extend(
 )
 
 
-DEBUG = True
+DEBUG = False
 
 # INSTALLED_APPS +=[
 #     'django.contrib.postgres',
@@ -24,9 +24,9 @@ SECRET_KEY = config('SECRET_KEY')
 # DATABASES = {
 #      'default': {
 #      'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#      'NAME': 'hadhuubdb',
-#      'USER': 'hadhuubuser',
-#      'PASSWORD': 'Dh!ga3eS0ft',
+#      'NAME': config('NAME'),
+#      'USER': config('USER'),
+#      'PASSWORD': config('PASSWORD'),
 #      'HOST': 'localhost',
 #      'PORT': '5432',
 #      }
@@ -44,8 +44,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "hadhuubo@gmail.com"
-EMAIL_HOST_PASSWORD = "mfdglqghmbqqmysj"
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
