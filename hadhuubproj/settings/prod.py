@@ -13,7 +13,7 @@ ALLOWED_HOSTS.extend(
 )
 
 
-DEBUG = False
+DEBUG = True
 
 # INSTALLED_APPS +=[
 #     'django.contrib.postgres',
