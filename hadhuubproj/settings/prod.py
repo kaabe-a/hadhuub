@@ -2,18 +2,18 @@ from . base import *
 from decouple import config
 
 # ALLOWED_HOSTS = ['127.0.0.1','localhost']
-# ALLOWED_HOSTS = ['hadhuub.com','www.hadhuub.com']
+ALLOWED_HOSTS = ['hadhuub.com','www.hadhuub.com']
 
-ALLOWED_HOSTS = []
-ALLOWED_HOSTS.extend(
-    filter(
-        None,
-        config('ALLOWED_HOSTS','').split(','),
-    )
-)
+# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS.extend(
+#     filter(
+#         None,
+#         config('ALLOWED_HOSTS','').split(','),
+#     )
+# )
 
 
-DEBUG = False
+DEBUG = True
 
 # INSTALLED_APPS +=[
 #     'django.contrib.postgres',
@@ -51,13 +51,13 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# #HTTPS  settings
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# SECURE_SSL_REDIRECT = True
+#HTTPS  settings
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
 
-# #HSTS settings
-# SECURE_HSTS_SECONDS = 31536000
-# SECURE_HSTS_PRELOAD = True
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#HSTS settings
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
