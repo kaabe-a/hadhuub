@@ -33,17 +33,17 @@ class Profile(models.Model):
     def __str__(self) -> str:
         return self.user.username
     
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
 
-        img = Image.open(self.cover.path)
-        print(img.height)
-        print(img.width)
-        if img.height > 300 or img.width > 300:
-            output_size = (450, 300)
-            print('hhhhhh')
-            img.thumbnail(output_size)
-            img.save(self.cover.path)
+    #     img = Image.open(self.cover.path)
+    #     print(img.height)
+    #     print(img.width)
+    #     if img.height > 300 or img.width > 300:
+    #         output_size = (450, 300)
+    #         print('hhhhhh')
+    #         img.thumbnail(output_size)
+    #         img.save(self.cover.path)
         
 
 

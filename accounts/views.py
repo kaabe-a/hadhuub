@@ -38,10 +38,11 @@ def register_page(request):
         form = forms.UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # print(user.groups.all())
-            username = form.cleaned_data.get('username')
-            messages.success(request,'Account Was Created For'+username)
+            messages.success(request,'Account Was Created For' + user.username)
             return redirect('login')
+        else:
+            messages.success(request,'Sorry Please try Again!')
+            return redirect('register')
     form = forms.UserCreationForm()
     context = {
         'form':form
