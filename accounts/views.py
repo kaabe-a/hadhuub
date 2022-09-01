@@ -38,6 +38,7 @@ def register_page(request):
         form = forms.UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            # user = form.save()
             messages.success(request,'Account Was Created For' + user.username)
             return redirect('login')
         else:
