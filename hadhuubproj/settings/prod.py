@@ -2,15 +2,15 @@ from . base import *
 from decouple import config
 
 # ALLOWED_HOSTS = ['127.0.0.1','localhost']
-ALLOWED_HOSTS = ['hadhuub.com','www.hadhuub.com']
+# ALLOWED_HOSTS = ['hadhuub.com','www.hadhuub.com','hadhuub-production.up.railway.app']
 
-# ALLOWED_HOSTS = []
-# ALLOWED_HOSTS.extend(
-#     filter(
-#         None,
-#         config('ALLOWED_HOSTS','').split(','),
-#     )
-# )
+ALLOWED_HOSTS = []
+ALLOWED_HOSTS.extend(
+    filter(
+        None,
+        config('ALLOWED_HOSTS','').split(','),
+    )
+)
 
 
 DEBUG = True
