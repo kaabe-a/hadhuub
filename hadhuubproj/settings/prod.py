@@ -21,16 +21,16 @@ DEBUG = False
 SECRET_KEY = config('SECRET_KEY')
 
 
-# DATABASES = {
-#      'default': {
-#      'ENGINE': 'django.db.backends.postgresql',
-#      'NAME': config('NAME'),
-#      'USER': config('USER'),
-#      'PASSWORD': config('PASSWORD'),
-#      'HOST': 'localhost',
-#      'PORT': '5432',
-#      }
-#  }
+DATABASES = {
+     'default': {
+     'ENGINE': 'django.db.backends.postgresql',
+     "PGDATABASE":config('PGDATABASE'),
+     "PGHOST":config('PGHOST'),
+     "PGPASSWORD":config('PGPASSWORD'),
+     "PGPORT":config('PGPORT'),
+     "PGUSER":config('PGUSER'),
+     }
+ }
 
 DATABASES = {
     'default': {
