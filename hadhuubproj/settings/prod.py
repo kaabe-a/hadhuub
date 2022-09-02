@@ -13,7 +13,9 @@ ALLOWED_HOSTS = ['hadhuub.com','www.hadhuub.com','hadhuub-production.up.railway.
 # )
 
 
-DEBUG = True
+DEBUG = False
+
+CSRF_TRUSTED_ORIGINS = ['https://*hadhuub.com','https://www.hadhuub.com','https://hadhuub-production.up.railway.app']
 
 # INSTALLED_APPS +=[
 #     'django.contrib.postgres',
