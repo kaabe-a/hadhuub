@@ -2,15 +2,15 @@ from . base import *
 from decouple import config
 
 # ALLOWED_HOSTS = ['127.0.0.1','localhost']
-# ALLOWED_HOSTS = ['hadhuub.com','www.hadhuub.com','hadhuub-production.up.railway.app']
+ALLOWED_HOSTS = ['hadhuub.com','www.hadhuub.com','hadhuub-production.up.railway.app']
 
-ALLOWED_HOSTS = []
-ALLOWED_HOSTS.extend(
-    filter(
-        None,
-        config('ALLOWED_HOSTS','').split(','),
-    )
-)
+# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS.extend(
+#     filter(
+#         None,
+#         config('ALLOWED_HOSTS','').split(','),
+#     )
+# )
 
 
 DEBUG = False
@@ -51,10 +51,10 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# #HTTPS  settings
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# SECURE_SSL_REDIRECT = True
+#HTTPS  settings
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
 
 # #HSTS settings
