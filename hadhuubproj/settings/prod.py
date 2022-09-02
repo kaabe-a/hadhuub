@@ -13,7 +13,7 @@ ALLOWED_HOSTS = ['hadhuub.com','www.hadhuub.com','hadhuub-production.up.railway.
 # )
 
 
-DEBUG = False
+DEBUG = True
 
 # INSTALLED_APPS +=[
 #     'django.contrib.postgres',
